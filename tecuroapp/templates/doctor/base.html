@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} Doctor {% endblock %}
+
+{% block sidebar %}
+    Doctor, Hi {{ request.user }}
+    <hr/>
+
+    <a href="{% url 'doctor-account' %}">Account</a>
+    -
+    <a href="{% url 'doctor-procedure' %}">Procedure</a>
+    -
+    <a href="{% url 'doctor-appointment' %}">Appointment</a>
+    -
+    <a href="{% url 'doctor-report' %}">Report</a>
+
+{% endblock %}

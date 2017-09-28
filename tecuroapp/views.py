@@ -12,6 +12,22 @@ def home(request):
 def doctor_home(request):
     return render(request, 'doctor/home.html', {})
 
+@login_required(login_url='/doctor/sign-in/')
+def doctor_account(request):
+    return render(request, 'doctor/account.html', {})
+
+@login_required(login_url='/doctor/sign-in/')
+def doctor_procedure(request):
+    return render(request, 'doctor/procedure.html', {})
+
+@login_required(login_url='/doctor/sign-in/')
+def doctor_appointment(request):
+    return render(request, 'doctor/appointment.html', {})
+
+@login_required(login_url='/doctor/sign-in/')
+def doctor_report(request):
+    return render(request, 'doctor/report.html', {})
+
 def doctor_sign_up(request):
     user_form = UserForm()
     doctor_form = DoctorForm()

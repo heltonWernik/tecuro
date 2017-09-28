@@ -21,6 +21,11 @@ urlpatterns = [
         name = 'doctor-sign-up'),
     url(r'^doctor/$', views.doctor_home, name = 'doctor-home'),
 
+    url(r'^doctor/account/$', views.doctor_account, name = 'doctor-account'),
+    url(r'^doctor/procedure/$', views.doctor_procedure, name = 'doctor-procedure'),
+    url(r'^doctor/appointment/$', views.doctor_appointment, name = 'doctor-appointment'),
+    url(r'^doctor/report/$', views.doctor_report, name = 'doctor-report'),
+
     #Sign Up/ Sign In/ Sign Up
     url(r'^api/social/', include('rest_framework_social_oauth2.urls')),
     # /convert-token (sign in/ sign up)
