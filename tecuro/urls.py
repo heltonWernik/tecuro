@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from tecuroapp import views
 from django.contrib.auth import views as auth_views
@@ -9,6 +9,8 @@ from django.conf import settings
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
+
+    # Doctor
     url(r'^doctor/sign-in/$', auth_views.login,
         {'template_name': 'doctor/sign_in.html'},
         name = 'doctor-sign-in'),
@@ -17,5 +19,10 @@ urlpatterns = [
         name = 'doctor-sign-out'),
     url(r'^doctor/sign-up', views.doctor_sign_up,
         name = 'doctor-sign-up'),
-    url(r'^doctor/$', views.doctor_home, name = 'doctor-home')
+    url(r'^doctor/$', views.doctor_home, name = 'doctor-home'),
+
+    #Sign Up/ Sign In/ Sign Up
+    url(r'^api/social/', include('rest_framework_social_oauth2.urls')),
+    # /convert-token (sign in/ sign up)
+    # /revoke-token (sign out)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
