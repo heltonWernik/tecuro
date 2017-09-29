@@ -3,15 +3,29 @@
 {% block title %} Doctor {% endblock %}
 
 {% block sidebar %}
-    Doctor, Hi {{ request.user }}
-    <hr/>
+    <div class="text-center">
+      <img class="img-circle" src="{{ MEDIA_URL }}{{ request.user.doctor.logo }}"
+          width="70" height="70" />
+      <br/>
+      <br/>
+      <h4>Hi, {{ request.user.get_full_name }}</h4>
+      <h5>{{ request.user.doctor.name }}</h5>
+    </div>
 
-    <a href="{% url 'doctor-account' %}">Account</a>
-    -
-    <a href="{% url 'doctor-procedure' %}">Procedure</a>
-    -
-    <a href="{% url 'doctor-appointment' %}">Appointment</a>
-    -
-    <a href="{% url 'doctor-report' %}">Report</a>
+    <div class="list-group">
+      <span class="text-uppercase">Dashboard</span>
+
+      <a href="{% url 'doctor-appointment' %}" class="list-group-item">Appointments</a>
+      <a href="{% url 'doctor-procedure' %}" class="list-group-item">Procedures</a>
+      <a href="{% url 'doctor-report' %}" class="list-group-item">Reports</a>
+
+      <span class="text-uppercase">Profile</span>
+      <a href="{% url 'doctor-account' %}" class="list-group-item">Account</a>
+    </div>
+
+    <div class="text-center">
+      <a href="{% url 'doctor-sign-out' %}?next={{ request.path }}"
+          class="btn btn-pink">Logout</a>
+    </div>
 
 {% endblock %}
