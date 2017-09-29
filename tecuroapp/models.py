@@ -29,3 +29,13 @@ class Driver(models.Model):
 
     def __str__(self):
         return self.user.get_full_name()
+
+class Procedure(models.Model):
+    doctor = models.ForeignKey(Doctor)
+    name = models.CharField(max_length=500)
+    short_description = models.CharField(max_length=500)
+    image = models.ImageField(upload_to='procedure_images/', blank=False)
+    price = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name
