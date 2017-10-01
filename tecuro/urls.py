@@ -24,6 +24,9 @@ urlpatterns = [
     url(r'^doctor/account/$', views.doctor_account, name = 'doctor-account'),
     url(r'^doctor/procedure/$', views.doctor_procedure, name = 'doctor-procedure'),
     url(r'^doctor/procedure/add/$', views.doctor_add_procedure, name = 'doctor-add-procedure'),
+
+    url(r'^doctor/procedure/edit/(?P<procedure_id>\d+)/$', views.doctor_edit_procedure, name = 'doctor-edit-procedure'),
+
     url(r'^doctor/appointment/$', views.doctor_appointment, name = 'doctor-appointment'),
     url(r'^doctor/report/$', views.doctor_report, name = 'doctor-report'),
 

@@ -3,6 +3,12 @@
 {% block title %} Doctor {% endblock %}
 
 {% block sidebar %}
+
+    {% url 'doctor-appointment' as doctor_appointment_url %}
+    {% url 'doctor-procedure' as doctor_procedure_url %}
+    {% url 'doctor-report' as doctor_report_url %}
+    {% url 'doctor-account' as doctor_account_url %}
+
     <div class="text-center">
       <img class="img-circle" src="{{ MEDIA_URL }}{{ request.user.doctor.logo }}"
           width="70" height="70" />
@@ -15,12 +21,16 @@
     <div class="list-group">
       <span class="text-uppercase">Dashboard</span>
 
-      <a href="{% url 'doctor-appointment' %}" class="list-group-item">Appointments</a>
-      <a href="{% url 'doctor-procedure' %}" class="list-group-item">Procedures</a>
-      <a href="{% url 'doctor-report' %}" class="list-group-item">Reports</a>
+      <a href="{% url 'doctor-appointment' %}"
+          class="list-group-item {% if request.path == doctor_appointment_url %} active {% endif %} ">Appointments</a>
+      <a href="{% url 'doctor-procedure' %}"
+          class="list-group-item {% if request.path == doctor_procedure_url %} active {% endif %} ">Procedures</a>
+      <a href="{% url 'doctor-report' %}"
+          class="list-group-item {% if request.path == doctor_report_url %} active {% endif %} ">Reports</a>
 
       <span class="text-uppercase">Profile</span>
-      <a href="{% url 'doctor-account' %}" class="list-group-item">Account</a>
+      <a href="{% url 'doctor-account' %}"
+          class="list-group-item {% if request.path == doctor_account_url %} active {% endif %} ">Account</a>
     </div>
 
     <div class="text-center">
