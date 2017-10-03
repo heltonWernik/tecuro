@@ -5,7 +5,7 @@ from tecuroapp.forms import UserForm, DoctorForm, UserFormForEdit, ProcedureForm
 from django.contrib.auth import authenticate, login
 
 from django.contrib.auth.models import User
-from tecuroapp.models import Procedure
+from tecuroapp.models import Procedure, Appointment
 
 # Create your views here.
 def home(request):
@@ -35,7 +35,7 @@ def doctor_account(request):
 
 @login_required(login_url='/doctor/sign-in/')
 def doctor_procedure(request):
-    procedures = Procedure.objects.filter(doctor = request.user.doctor).order_by("-id")
+    procedures = Procedure.objects.filter(doctor = request.user.doctor).appointment_by("-id")
     return render(request, 'doctor/procedure.html', {"procedures": procedures})
 
 @login_required(login_url='/doctor/sign-in/')
@@ -58,6 +58,7 @@ def doctor_add_procedure(request):
 @login_required(login_url='/doctor/sign-in/')
 def doctor_edit_procedure(request, procedure_id):
     form = ProcedureForm(instance = Procedure.objects.get(id = procedure_id))
+    form.fields['image'].required = False
 
     if request.method == "POST":
         form = ProcedureForm(request.POST, request.FILES, instance = Procedure.objects.get(id = procedure_id))
@@ -72,7 +73,16 @@ def doctor_edit_procedure(request, procedure_id):
 
 @login_required(login_url='/doctor/sign-in/')
 def doctor_appointment(request):
-    return render(request, 'doctor/appointment.html', {})
+    if request.method == "POST":
+        appointment = Appointment.objects.get(id = request.POST["id"], doctor = request.user.doctor)
+
+        if appointment.status == Appointment.PREPARING:
+            appointment.status = Appointment.READY
+            appointment.save()
+
+    appointments = Appointment.objects.filter(doctor = request.user.doctor).appointment_by("-id")
+    return render(request, 'doctor/appointment.html', {"appointments": appointments})
+
 
 @login_required(login_url='/doctor/sign-in/')
 def doctor_report(request):
