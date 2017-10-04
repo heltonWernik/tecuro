@@ -35,7 +35,7 @@ def doctor_account(request):
 
 @login_required(login_url='/doctor/sign-in/')
 def doctor_procedure(request):
-    procedures = Procedure.objects.filter(doctor = request.user.doctor).appointment_by("-id")
+    procedures = Procedure.objects.filter(doctor = request.user.doctor).order_by("-id")
     return render(request, 'doctor/procedure.html', {"procedures": procedures})
 
 @login_required(login_url='/doctor/sign-in/')
@@ -80,7 +80,7 @@ def doctor_appointment(request):
             appointment.status = Appointment.READY
             appointment.save()
 
-    appointments = Appointment.objects.filter(doctor = request.user.doctor).appointment_by("-id")
+    appointments = Appointment.objects.filter(doctor = request.user.doctor).order_by("-id")
     return render(request, 'doctor/appointment.html', {"appointments": appointments})
 
 
