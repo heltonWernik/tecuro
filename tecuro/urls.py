@@ -34,6 +34,13 @@ urlpatterns = [
     url(r'^api/social/', include('rest_framework_social_oauth2.urls')),
     # /convert-token (sign in/ sign up)
     # /revoke-token (sign out)
+    url(r'^api/doctor/appointment/notification/(?P<last_request_time>.+)/$', apis.doctor_appointment_notification),
 
+
+    # APIs for CUSTOMERS
     url(r'^api/customer/doctors/$', apis.customer_get_doctors),
+    url(r'^api/customer/procedures/(?P<doctor_id>\d+)/$', apis.customer_get_procedures),
+    url(r'^api/customer/appointment/add/$', apis.customer_add_appointment),
+    url(r'^api/customer/appointment/latest/$', apis.customer_get_latest_appointment),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
